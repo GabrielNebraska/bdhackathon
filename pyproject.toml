@@ -1,21 +1,29 @@
 [project]
 name = "bdhackathon"
 version = "0.1.0"
-description = "banco de dados hackathon"
+description = "Default template for PDM package"
 authors = [
     {name = "Gabriel", email = "gabrielviniciuscorrea204@gmail.com"},
+    {name = "", email = ""},
 ]
 dependencies = [
     "django>=5.1.2",
 ]
-requires-python = ">=3.10"
+requires-python = "==3.12.*"
 readme = "README.md"
 license = {text = "MIT"}
 
-[build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
-
-
 [tool.pdm]
-distribution = true
+distribution = false
+
+[tool.pdm.scripts]
+dev = "python manage.py runserver"
+runserver = "python manage.py runserver"
+createsuperuser = "python manage.py createsuperuser"
+migrate = "python manage.py migrate"
+makemigrations = "python manage.py makemigrations"
+shell = "python manage.py shell"
+test = "python manage.py test"
+startapp = "python manage.py startapp {args}"
+loaddata = "python manage.py loaddata {args}"
+dumpdata = "python manage.py dumpdata {args}"
