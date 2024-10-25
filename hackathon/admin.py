@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Cargo, usuario
+from .models import Cargo, Usuario
 
 admin.site.register(Cargo)
-admin.site.register(usuario)
+admin.site.register(Usuario)
