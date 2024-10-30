@@ -2,63 +2,58 @@ from django.shortcuts import render
 
 from rest_framework.viewsets import ModelViewSet
 
-from hackathon.models import Cargo
-from hackathon.serializers import CargoSerializer
+from hackathon.models import Cargo, Usuario, Cliente, Orcamentos, Servico, Verificacoespreventivas, Relatorio, Estoque, Ferramentaspecas, Paralelismo, Funcionario, Administrador
+
+from hackathon.serializers import CargoSerializer, UsuarioSerializer, ClienteSerializer, OrcamentosSerializer, ServicoSerializer, VerificacoespreventivasSerializer, RelatorioSerializer, EstoqueSerializer, FerramentaspecasSerializer, ParalelismoSerializer, FuncionarioSerializer, AdministradorSerializer
 
 class CargoViewSet(ModelViewSet):
     queryset = Cargo.objects.all()
     serializer_class = CargoSerializer
 
+class UsuarioViewSet(ModelViewSet):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
+
+class ClienteViewSet(ModelViewSet):
+    queryset = Cliente.objects.all()
+    serializer_class = ClienteSerializer
+
+class OrcamentosViewSet(ModelViewSet):
+    queryset = Orcamentos.objects.all()
+    serializer_class = OrcamentosSerializer
+
+class ServicoViewSet(ModelViewSet):
+    queryset = Servico.objects.all()
+    serializer_class = ServicoSerializer
+
+class VerificacoespreventivasViewSet(ModelViewSet):
+    queryset = Verificacoespreventivas.objects.all()
+    serializer_class = VerificacoespreventivasSerializer
+
+class RelatorioViewSet(ModelViewSet):
+    queryset = Relatorio.objects.all()
+    serializer_class = RelatorioSerializer
+
+class EstoqueViewSet(ModelViewSet):
+    queryset = Estoque.objects.all()
+    serializer_class = EstoqueSerializer
+
+class FerramentaspecasViewSet(ModelViewSet):
+    queryset = Ferramentaspecas.objects.all()
+    serializer_class = FerramentaspecasSerializer
+
+class ParalelismoViewSet(ModelViewSet):
+    queryset = Paralelismo.objects.all()
+    serializer_class = ParalelismoSerializer
+
+class FuncionarioViewSet(ModelViewSet):
+    queryset = Funcionario.objects.all()
+    serializer_class = FuncionarioSerializer
+
+class AdministradorViewSet(ModelViewSet):
+    queryset = Administrador.objects.all()
+    serializer_class = AdministradorSerializer
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Relatorio, Image
-
-
-#tudo a partir daqui fiz com auxílio de IA, portanto pode estar errado. precisa ser revisado*
-def upload_relatorio(request):
-    if request.method == 'POST':
-        descricao = request.POST.get('descricao')
-        dificuldadeservico = request.POST.get('dificuldadeservico')
-        colaboracao = request.POST.get('colaboracao')
-        datainicial = request.POST.get('datainicial')
-        datafinal = request.POST.get('datafinal')
-        pendencias = request.POST.get('pendencias')
-
-        relatorio = Relatorio(
-            descricao_relatorio=descricao,
-            dificuldadeservico_relatorio=dificuldadeservico,
-            colaboracaodaempresa_relatorio=colaboracao,
-            datainicialservico_relatorio=datainicial,
-            datafinalservico_relatorio=datafinal,
-            pendenciasmaquina_relatorio=pendencias
-        )
-
-        # Salva o relatório antes de adicionar as imagens
-        relatorio.save()
-
-        # Processa as imagens antes do serviço
-        if 'imagens_antes' in request.FILES.getlist('imagens_antes'):
-            for imagem_file in request.FILES.getlist('imagens_antes'):
-                imagem = Image(imagem=imagem_file)
-                try:
-                    imagem.full_clean()  # Valida a imagem
-                    imagem.save()
-                    relatorio.imagens_antes.add(imagem)  # Adiciona a imagem ao relatorio
-                except ValidationError as e:
-                    messages.error(request, str(e))
-
-        # Processa as imagens depois do serviço
-        if 'imagens_depois' in request.FILES.getlist('imagens_depois'):
-            for imagem_file in request.FILES.getlist('imagens_depois'):
-                imagem = Image(imagem=imagem_file)
-                try:
-                    imagem.full_clean()  # Valida a imagem
-                    imagem.save()
-                    relatorio.imagens_depois.add(imagem)  # Adiciona a imagem ao relatorio
-                except ValidationError as e:
-                    messages.error(request, str(e))
-
-        messages.success(request, 'Relatório enviado com sucesso!')
-        return redirect('sua_view')
-
-    return render(request, 'upload_relatorio.html')
