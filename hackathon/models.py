@@ -36,7 +36,7 @@ class Cliente (models.Model):
 class Orcamentos(models.Model):
     descricao_orcamento = models.CharField(max_length=45)
     datasolicitada_orcamento = models.DateField(auto_now_add=True)
-    valor_orcamento = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    valor_orcamento = models.DecimalField(max_digits=5, decimal_places=2, default=None)
     tipo_orcamento = models.CharField(max_length=45, null=True)
     endereco_cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, related_name="cliente")
 

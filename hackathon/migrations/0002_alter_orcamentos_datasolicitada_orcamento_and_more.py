@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="orcamentos",
             name="datasolicitada_orcamento",
-            field=models.DateField(default=0),
+            field=models.DateField(default=None),
         ),
         migrations.AlterField(
             model_name="orcamentos",

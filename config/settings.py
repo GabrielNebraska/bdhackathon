@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     "rest_framework",
     "uploader",
     "hackathon",
+    "swagger:drf-yasg",
+    "rest_framework_swagger",
+
 ]
 
 MIDDLEWARE = [
