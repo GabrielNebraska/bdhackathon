@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "uploader",
     "hackathon",
-    "swagger:drf-yasg",
+    "drf-yasg",
     "rest_framework_swagger",
 
 ]
