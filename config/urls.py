@@ -5,9 +5,12 @@ from uploader.router import router as uploader_router
 
 from django.contrib import admin
 from django.urls import include, path
-
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import permissions
 from rest_framework.swagger import schema_view
 from rest_framework.routers import DefaultRouter
+
 from hackathon.views import CargoViewSet, UsuarioViewSet, ClienteViewSet, OrcamentosViewSet, ServicoViewSet, VerificacoespreventivasViewSet, RelatorioViewSet, EstoqueViewSet, FerramentaspecasViewSet, ParalelismoViewSet, FuncionarioViewSet, AdministradorViewSet
 
 path("api/media/", include(uploader_router.urls)), 
@@ -26,6 +29,19 @@ router.register(r"paralelismos", ParalelismoViewSet)
 router.register(r"funcionarios", FuncionarioViewSet)
 router.register(r"administradores", AdministradorViewSet)
 
+schema_view = get_schema_view(
+    openapi.Info(
+        title="API documentation",
+        default_version='v1',
+        description="Test API documentation",
+        teres_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@local.com"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    #permission_classes=(permissions.AllowAny,),
+    
+)
 
 
 urlpatterns = [

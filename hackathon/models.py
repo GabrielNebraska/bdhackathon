@@ -14,7 +14,6 @@ class Cargo(models.Model):
 
 class Usuario(models.Model):
     nome = models.CharField(max_length=100)
-    endereco = models.CharField(max_length=350, null=False)
     email = models.EmailField(null=False, blank=False)
     senha = models.CharField(max_length=128)  # Aumentei o tamanho para armazenar hashes
     telefone = models.CharField(
@@ -47,13 +46,14 @@ class Orcamentos(models.Model):
 
 class Servico(models.Model):
     descricao_servico = models.CharField(max_length=45)
-    tempo_Servico = models.TimeField()
+    cliente = models.OneToOneField(Cliente, on_delete=models.PROTECT, related_name="Cliente")
     orcamento_idorcamentos = models.IntegerField()
-    orcamentos_cliente_cnpjcliente = models.CharField(max_length=14)
-    orcamentos_cliente_idcliente = models.CharField(max_length=14)
     nome_servico = models.CharField(max_length=45)
     relatorio_id_relatorio = models.IntegerField()
-    relatorio_verificacoespreventivas_idverificacoespreventivas = models.IntegerField()
+    status_concluido = models.IntegerField() #não sei se isso era pra ser integerfield.
+    funcionario_do_servico = models.IntegerField()
+    tipo_de_servico = models.IntegerField()
+    
 #tem que botar as imagens antes e depois do servico
     def __str__(self):
         return f"{self.nome_servico}, ({self.descricao_servico})" 
@@ -112,6 +112,7 @@ class Ferramentaspecas(models.Model):
     nome_ferramentaspecas = models.CharField(max_length=45)
     valor_ferramentaspecas = models.CharField(max_length=5)
     quantidade_ferramentaspecas = models.CharField(max_length=45)
+    marca = models.CharField(max_length=45)
 
     def __str__ (self):
         return self.nome_ferramentaspecas
