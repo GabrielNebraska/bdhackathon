@@ -3,7 +3,7 @@ from django.db import models
 from uploader.models import Image
 
 def only_numbers(value): 
-    if value.isdigit()==False:
+    if not value.isdigit():
         raise ValidationError('Este campo deve conter apenas números')
 
 class Cargo(models.Model):
@@ -11,20 +11,17 @@ class Cargo(models.Model):
 
     def __str__(self):
         return self.descricao
-
+    
 class Usuario(models.Model):
     nome = models.CharField(max_length=100)
     email = models.EmailField(null=False, blank=False)
     senha = models.CharField(max_length=128)  # Aumentei o tamanho para armazenar hashes
-    telefone = models.CharField(
-        validators=[only_numbers],
-        max_length=11
-    )
+    matricula = models.CharField(max_length=20, unique=True)  # Novo campo matrícula
 
     def __str__(self):
         return f"{self.nome}"
     
-class Cliente (models.Model):
+class Cliente(models.Model):
     nome_cliente = models.CharField(max_length=45)
     cnpj_cliente = models.CharField(max_length=14)
     endereco_cliente = models.CharField(max_length=45)
@@ -39,48 +36,45 @@ class Orcamentos(models.Model):
     tipo_orcamento = models.CharField(max_length=45, null=True)
     endereco_cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, related_name="cliente")
 
-
     def __str__(self):
         return self.descricao_orcamento
-
 
 class Servico(models.Model):
     descricao_servico = models.CharField(max_length=45)
     cliente = models.OneToOneField(Cliente, on_delete=models.PROTECT, related_name="Cliente")
-    orcamento_idorcamentos = models.IntegerField()
+    orcamento = models.ForeignKey(Orcamentos, on_delete=models.PROTECT)
     nome_servico = models.CharField(max_length=45)
-    relatorio_id_relatorio = models.IntegerField()
-    status_concluido = models.IntegerField() #não sei se isso era pra ser integerfield.
-    funcionario_do_servico = models.IntegerField()
+    relatorio = models.ForeignKey('Relatorio', on_delete=models.PROTECT)
+    status_concluido = models.BooleanField(default=False)  # Alterado para BooleanField
+    funcionario = models.ForeignKey('Funcionario', on_delete=models.PROTECT)
     tipo_de_servico = models.IntegerField()
-    
-#tem que botar as imagens antes e depois do servico
+    aparelho_seguro = models.BooleanField(default=True)  # Novo campo
+
     def __str__(self):
-        return f"{self.nome_servico}, ({self.descricao_servico})" 
+        return f"{self.nome_servico}, ({self.descricao_servico})"
 
 class Verificacoespreventivas(models.Model):
-    paralelismo_idparalelismo = models.IntegerField()
-    estiramento_idestiramento = models.IntegerField()
-    limpezaequipamentos_verificacoespreventivas = models.IntegerField()
-    testesdemovimento_verificacoespreventivas = models.IntegerField()
-    seguranca_verificacoespreventivas = models.IntegerField()
-    funcionamentoalimentador_verificacoespreventivas = models.IntegerField()
-    funcionamentomanipulador_verificacoespreventivas = models.IntegerField()
-    ruidoaparelho_verificacoespreventivas = models.IntegerField()
-    aquecimentoconformeprog_verificacoespreventivas = models.IntegerField()
+    paralelismo = models.IntegerField()
+    estiramento = models.IntegerField()
+    limpeza_equipamentos = models.IntegerField()
+    testes_movimento = models.IntegerField()
+    seguranca = models.IntegerField()
+    funcionamento_alimentador = models.IntegerField()
+    funcionamento_manipulador = models.IntegerField()
+    ruido_aparelho = models.IntegerField()
+    aquecimento_conforme_prog = models.IntegerField()
     
-    def __str__ (self):
-        return str(self.seguranca_verificacoespreventivas)
-   
+    def __str__(self):
+        return str(self.seguranca)
 
 class Relatorio(models.Model):
     descricao_relatorio = models.CharField(max_length=45)
-    dificuldadeservico_relatorio = models.IntegerField()
-    colaboracaodaempresa_relatorio = models.IntegerField()
-    datainicialservico_relatorio = models.DateField()
-    datafinalservico_relatorio = models.DateField()
-    pendenciasmaquina_relatorio = models.CharField(max_length=45)
-    Verificacoespreventivas_idverificacoespreventivas = models.ForeignKey(Verificacoespreventivas, on_delete=models.PROTECT, related_name="IDverificacoespreventivas")
+    dificuldade_servico = models.IntegerField()
+    colaboracao_empresa = models.IntegerField()
+    data_inicial_servico = models.DateField()
+    data_final_servico = models.DateField()
+    pendencias_maquina = models.CharField(max_length=45)
+    verificacoes_preventivas = models.ForeignKey(Verificacoespreventivas, on_delete=models.PROTECT, related_name="IDverificacoespreventivas")
     # imagens_antes = models.ManyToManyField(
     #     Image,
     #     related_name="relatorios_antes",
@@ -91,7 +85,6 @@ class Relatorio(models.Model):
     #     related_name="relatorios_depois",
     #     blank=True
     # )
-#ainda tem que ser incluido o "verificacoespreventivas_idverificacoespreventivas" e "imagens do servico"/"imagens depois do servico"
     def __str__(self):
         return self.descricao_relatorio
 
@@ -101,41 +94,34 @@ class Image(models.Model):
     def __str__(self):
         return f"Image {self.id}"
 
-
 class Estoque(models.Model):
     endereco_estoque = models.CharField(max_length=45)
 
-    def __str__ (self):
+    def __str__(self):
         return self.endereco_estoque
     
 class Ferramentaspecas(models.Model):
     nome_ferramentaspecas = models.CharField(max_length=45)
-    valor_ferramentaspecas = models.CharField(max_length=5)
+    valor_ferramentaspecas = models.DecimalField(max_digits=10, decimal_places=2)  # Alterado para DecimalField
     quantidade_ferramentaspecas = models.CharField(max_length=45)
     marca = models.CharField(max_length=45)
 
-    def __str__ (self):
+    def __str__(self):
         return self.nome_ferramentaspecas
-    
- 
-class Paralelismo (models.Model):
-    superioresquerdo_paralelismo = models.CharField(max_length=5)
-    superiordireito_paralelismo = models.CharField(max_length=5)
-    inferioresquerdo_paralelismo = models.CharField(max_length=5)
-    inferiordireito_paralelismo = models.CharField(max_length=5)
 
-    def __str__ (self):
-        return self.superiordireito_paralelismo
+class Paralelismo(models.Model):
+    superioresquerdo = models.CharField(max_length=5)
+    superiordireito = models.CharField(max_length=5)
+    inferioresquerdo = models.CharField(max_length=5)
+    inferiordireito = models.CharField(max_length=5)
+
+    def __str__(self):
+        return self.superiordireito
 
 class Funcionario(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.PROTECT, related_name="funcionario")
-    # Adicione outros campos específicos para o funcionário aqui, se necessário
-
     matricula = models.CharField(max_length=10)
-    cargo = models.ForeignKey(
-        Cargo, on_delete=models.PROTECT, related_name="funcionarios"
-    )
+    cargo = models.ForeignKey(Cargo, on_delete=models.PROTECT, related_name="funcionarios")
 
 class Administrador(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.PROTECT, related_name="administrador")
-    
