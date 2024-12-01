@@ -2,6 +2,9 @@
 # Sai do script se houver algum erro
 set -o errexit
 
+# Instala o PDM
+pip install pdm
+
 # Atualiza o PDM
 pdm self update
 
