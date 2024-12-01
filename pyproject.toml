@@ -28,7 +28,6 @@ readme = "README.md"
 license = {text = "MIT"}
 
 [tool.pdm]
-autoexport = true
 distribution = false
 
 
