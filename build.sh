@@ -2,26 +2,17 @@
 # Sai do script se houver algum erro
 set -o errexit
 
-# Atualiza o pip
-pip install --upgrade pip
-
+# Instala o PDM
 pip install pdm
 
-# Instala as dependências
-pip install -r requirements.txt
-
-# Coleta os arquivos estáticos
-python manage.py collectstatic --no-input
-
-# Aplica as migrações
-python manage.py migrate
-
-pip install pdm
-
+# Atualiza o PDM
 pdm self update
 
+# Instala as dependências
 pdm install
 
+# Coleta os arquivos estáticos
 pdm run python manage.py collectstatic --no-input
 
+# Aplica as migrações
 pdm run python manage.py migrate
