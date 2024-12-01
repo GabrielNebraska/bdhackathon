@@ -28,7 +28,9 @@ readme = "README.md"
 license = {text = "MIT"}
 
 [tool.pdm]
+autoexport = true
 distribution = false
+
 
 [tool.pdm.scripts]
 pre_dev = "python ./scripts/set_my_ip.py"
@@ -54,3 +56,7 @@ line-length = 120
 [[tool.pdm.autoexport]]
 filename = "requirements.txt"
 without-hashes = "true"
+
+[build-system]
+requires = ["pdm-pep517"]
+build-backend = "pdm.backend"
