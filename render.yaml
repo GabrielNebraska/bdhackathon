@@ -10,12 +10,13 @@ services:
     name: mysite
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "python -m gunicorn mysite.asgi:application -k uvicorn.workers.UvicornWorker"    envVars:
-      - key: postgresql://postgres.qacgiaqgsmmmazgobkzh:Hackathongas2024@aws-0-sa-east-1.pooler.supabase.com:6543/postgres
+    startCommand: "pdm run python -m gunicorn config.asgi:application -k uvicorn.workers.UvicornWorker"
+    envVars:
+      - key: DATABASE_URL
         fromDatabase:
-          name: Hackathon2024
+          name: mysitedb
           property: connectionString
-      - key: qFCG6_oA-iZ6fOc8_U6nw7JVU771b7B8QyOtAI2-8Hk
+      - key: SECRET_KEY
         generateValue: true
       - key: WEB_CONCURRENCY
-        value: 4
+        value: "4"
