@@ -9,6 +9,7 @@ services:
     plan: free
     name: mysite
     runtime: python
+    pythonVersion: "3.12.7"  # Adicione esta linha para especificar a versão do Python
     buildCommand: "./build.sh"
     startCommand: "pdm run python -m gunicorn config.asgi:application -k uvicorn.workers.UvicornWorker"
     envVars:
