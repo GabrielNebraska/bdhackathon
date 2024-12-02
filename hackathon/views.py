@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 from rest_framework.viewsets import ModelViewSet
 
+from rest_framework.permissions import IsAuthenticated
+
 from hackathon.models import Cargo, Usuario, Cliente, Orcamentos, Servico, Verificacoespreventivas, Relatorio, Estoque, Ferramentaspecas, Paralelismo, Funcionario, Administrador
 
 from hackathon.serializers import CargoSerializer, UsuarioSerializer, ClienteSerializer, OrcamentosSerializer, ServicoSerializer, VerificacoespreventivasSerializer, RelatorioSerializer, EstoqueSerializer, FerramentaspecasSerializer, ParalelismoSerializer, FuncionarioSerializer, AdministradorSerializer

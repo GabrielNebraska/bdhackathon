@@ -5,10 +5,34 @@ description = "Descrição do projeto"
 authors = [
     { name="Seu Nome", email="seu.email@example.com" }
 ]
+# dependencies = [
+#    django = "*",
+#    gunicorn = "*",
+#    uvicorn = {extras = ["standard"], version = "*"},
+#    psycopg2-binary = "*",
+#    python-dotenv = "*",
+#]
 requires-python = "==3.12.*"
+dependencies = [
+    "django>=5.1.3", 
+    "gunicorn>=23.0.0", 
+    "psycopg2-binary>=2.9.10", 
+    "python-dotenv>=1.0.1", 
+    "dj-database-url>=2.3.0", 
+    "pillow>=11.0.0", 
+    "python-magic>=0.4.27; sys_platform == \"linux\"", 
+    "python-magic-bin>=0.4.14; sys_platform == \"win32, darwin\"", 
+    "drf-yasg>=1.21.8",
+]
+
 
 [tool.pdm]
-autoexport = true
+distribution = false
+
+[[tool.pdm.autoexport]]
+filename = "requirements.txt"
+without-hashes = "true"
+
 
 [tool.pdm.scripts]
 pre_dev = "python ./scripts/set_my_ip.py"
@@ -22,13 +46,11 @@ test = "python manage.py test"
 startapp = "python manage.py startapp {args}"
 loaddata = "python manage.py loaddata {args}"
 dumpdata = "python manage.py dumpdata {args}"
+post_migrate = "python manage.py graph_models --disable-sort-fields -g -o core.png core uploader"
 
-[project.dependencies]
-django = "*"
-gunicorn = "*"
-uvicorn = {extras = ["standard"], version = "*"}
-psycopg2-binary = "*"
+
 
 [build-system]
 requires = ["pdm-pep517"]
 build-backend = "pdm.backend"
+

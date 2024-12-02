@@ -73,9 +73,21 @@ class Relatorio(models.Model):
     data_final_servico = models.DateField()
     pendencias_maquina = models.CharField(max_length=45)
 
-    imagens_antes = models.ImageField(upload_to="imagens/antes/", blank=True, null=True)
-    imagens_depois = models.ImageField(
-        upload_to="imagens/antes/", blank=True, null=True
+    imagens_antes = models.ForeignKey(
+        Image,
+        related_name="+",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        default=None,
+    )
+    imagens_depois = models.ForeignKey(
+        Image,
+        related_name="+",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        default=None,
     )
 
     def __str__(self):
