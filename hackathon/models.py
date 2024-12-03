@@ -147,3 +147,4 @@ class Chamado(models.Model):
     titulo = models.CharField(max_length=45)
     status = models.BooleanField(default=False)
     data_envio = models.DateField()
+    funcionario = models.ForeignKey(on_delete=models.PROTECT, to=Funcionario)

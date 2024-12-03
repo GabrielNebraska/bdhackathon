@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     #"corsheaders",
     "rest_framework",
     "uploader",
-    "core",
+    'core',
     "hackathon",
     "drf_yasg",
 ]
