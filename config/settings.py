@@ -59,8 +59,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     #"corsheaders",
     "rest_framework",
-    "uploader",
-    'core',
+    "rest_framework_simplejwt",
+    "uploader", # nova linha
+    "core",
     "hackathon",
     "drf_yasg",
 ]
@@ -111,7 +112,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 #}
 
 DATABASES = {
-    "default": dj_database_url.config(default="postgresql://postgres:postgres@localhost:5432/mysite", conn_max_age=600)
+    "default": dj_database_url.config(default="postgresql://postgres:gab@localhost:5432/mysite", conn_max_age=600)
 }
 
 # Password validation
@@ -169,3 +170,11 @@ MEDIA_ENDPOINT = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 FILE_UPLOAD_PERMISSIONS = 0o640
 
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissions",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}

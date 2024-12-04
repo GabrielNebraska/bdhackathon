@@ -4,9 +4,13 @@ from rest_framework.viewsets import ModelViewSet
 
 from rest_framework.permissions import IsAuthenticated
 
-from hackathon.models import Cargo, Usuario, Cliente, Orcamentos, Servico, Verificacoespreventivas, Relatorio, Estoque, Ferramentaspecas, Paralelismo, Funcionario, Administrador
+from hackathon.models import Chamado, Cargo, Usuario, Cliente, Orcamentos, Servico, Relatorio, Ferramentaspecas, Paralelismo, Funcionario, Administrador
 
-from hackathon.serializers import CargoSerializer, UsuarioSerializer, ClienteSerializer, OrcamentosSerializer, ServicoSerializer, VerificacoespreventivasSerializer, RelatorioSerializer, EstoqueSerializer, FerramentaspecasSerializer, ParalelismoSerializer, FuncionarioSerializer, AdministradorSerializer
+from hackathon.serializers import ChamadoSerializer, CargoSerializer, UsuarioSerializer, ClienteSerializer, OrcamentosSerializer, ServicoSerializer, RelatorioSerializer, FerramentaspecasSerializer, ParalelismoSerializer, FuncionarioSerializer, AdministradorSerializer
+
+class ChamadoViewSet(ModelViewSet):
+    queryset = Chamado.objects.all()
+    serializer_class = ChamadoSerializer
 
 class CargoViewSet(ModelViewSet):
     queryset = Cargo.objects.all()
@@ -28,17 +32,9 @@ class ServicoViewSet(ModelViewSet):
     queryset = Servico.objects.all()
     serializer_class = ServicoSerializer
 
-class VerificacoespreventivasViewSet(ModelViewSet):
-    queryset = Verificacoespreventivas.objects.all()
-    serializer_class = VerificacoespreventivasSerializer
-
 class RelatorioViewSet(ModelViewSet):
     queryset = Relatorio.objects.all()
     serializer_class = RelatorioSerializer
-
-class EstoqueViewSet(ModelViewSet):
-    queryset = Estoque.objects.all()
-    serializer_class = EstoqueSerializer
 
 class FerramentaspecasViewSet(ModelViewSet):
     queryset = Ferramentaspecas.objects.all()

@@ -1,6 +1,16 @@
 from rest_framework.serializers import ModelSerializer
 
-from hackathon.models import Cargo, Usuario, Cliente, Orcamentos, Servico, Verificacoespreventivas, Relatorio, Estoque, Ferramentaspecas, Paralelismo, Funcionario, Administrador
+from hackathon.models import Chamado, Cargo, Usuario, Cliente, Orcamentos, Servico, Relatorio, Ferramentaspecas, Paralelismo, Funcionario, Administrador
+
+class ServicoSerializer(ModelSerializer):
+    class Meta:
+        model = Servico
+        fields = "__all__"
+        
+class ChamadoSerializer(ModelSerializer):
+    class Meta:
+        model = Chamado
+        fields = "__all__"
 
 class CargoSerializer(ModelSerializer):
     class Meta:
@@ -26,28 +36,11 @@ class OrcamentosSerializer(ModelSerializer):
         fields = "__all__"        
 
 
-class ServicoSerializer(ModelSerializer):
-    class Meta:
-        model = Servico
-        fields = "__all__"
-
-
-class VerificacoespreventivasSerializer(ModelSerializer):
-    class Meta:
-        model = Verificacoespreventivas
-        fields = "__all__"        
-
-
 class RelatorioSerializer(ModelSerializer):
     class Meta:
         model = Relatorio
         fields = "__all__"
 
-
-class EstoqueSerializer(ModelSerializer):
-    class Meta:
-        model = Estoque
-        fields = "__all__"
 
 
 class FerramentaspecasSerializer(ModelSerializer):

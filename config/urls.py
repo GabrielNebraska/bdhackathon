@@ -3,6 +3,12 @@ from django.conf.urls.static import static
 
 from uploader.router import router as uploader_router
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+
 from django.contrib import admin
 from django.urls import include, path
 from drf_yasg.views import get_schema_view
@@ -19,9 +25,7 @@ from hackathon.views import (
     ClienteViewSet,
     OrcamentosViewSet,
     ServicoViewSet,
-    VerificacoespreventivasViewSet,
     RelatorioViewSet,
-    EstoqueViewSet,
     FerramentaspecasViewSet,
     ParalelismoViewSet,
     FuncionarioViewSet,
@@ -35,9 +39,7 @@ router.register(r"usuarios", UsuarioViewSet)
 router.register(r"clientes", ClienteViewSet)
 router.register(r"orcamentoss", OrcamentosViewSet)
 router.register(r"servicos", ServicoViewSet)
-router.register(r"verificacoespreventivas", VerificacoespreventivasViewSet)
 router.register(r"relatorios", RelatorioViewSet)
-router.register(r"estoques", EstoqueViewSet)
 router.register(r"ferramentaspecas", FerramentaspecasViewSet)
 router.register(r"paralelismos", ParalelismoViewSet)
 router.register(r"funcionarios", FuncionarioViewSet)
@@ -63,6 +65,8 @@ urlpatterns = [
     path("api/media/", include(uploader_router.urls)),
     path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
+    path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 
 #if settings.DEBUG:

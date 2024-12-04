@@ -1,12 +1,15 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from uploader.models import Image
-
+from datetime import date
+from django.utils import timezone
 
 def only_numbers(value):
     if not value.isdigit():
         raise ValidationError("Este campo deve conter apenas números")
 
+def default_date():
+    return timezone.now().date()
 
 class Cargo(models.Model):
     descricao = models.CharField(max_length=100)
@@ -59,7 +62,7 @@ class Servico(models.Model):
     funcionario = models.ForeignKey("Funcionario", on_delete=models.PROTECT)
     tipo_de_servico = models.IntegerField()
     aparelho_seguro = models.BooleanField(default=True)  
-    data_inicio = models.DateField()
+    data_inicio = models.DateField(default=default_date)
 
     def __str__(self):
         return f"{self.nome_servico}, ({self.descricao_servico})"
@@ -69,7 +72,6 @@ class Relatorio(models.Model):
     descricao_relatorio = models.CharField(max_length=45)
     dificuldade_servico = models.IntegerField()
     colaboracao_empresa = models.IntegerField()
-    data_inicio = models.ForeignKey("Servico", on_delete=models.PROTECT)
     data_final_servico = models.DateField()
     pendencias_maquina = models.CharField(max_length=45)
 
