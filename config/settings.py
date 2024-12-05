@@ -25,7 +25,7 @@ ALLOWED_HOSTS = ["*"]
 
 #CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://localhost:8000", "https://*.fl0.io/"]
 # settings.py
-CSRF_TRUSTED_ORIGINS = ['https://bdhackathon.fly.dev']
+CSRF_TRUSTED_ORIGINS = ['https://bdhackathon.fly.dev', 'https://deployfuncionarios.vercel.app/estoque']
 
 if MODE in ["PRODUCTION", "MIGRATE"]:
     MEDIA_URL = "/media/"
