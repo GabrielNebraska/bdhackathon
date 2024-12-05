@@ -1,15 +1,5 @@
 # Use a imagem base do Python
-FROM python:3.12-slim
-
-# Instale as dependências do psycopg2 e libmagic
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    gcc \
-    libmagic1 \
-    && rm -rf /var/lib/apt/lists/*
-
-# Crie o diretório de trabalho
-RUN mkdir -p /code
+FROM python:3.9
 
 # Defina o diretório de trabalho
 WORKDIR /code
@@ -21,10 +11,10 @@ COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 
 # Copie o restante do código
-COPY . /code
+COPY . /code/
 
 # Defina a variável de ambiente SECRET_KEY
-ENV SECRET_KEY "t9AMMJtdgqa7kiQOM8YNMb4790BZp4CY9biOU7jqK5feornSoT"
+ENV SECRET_KEY "_*(ko-j_4x-pfkh+u_4gm0inget@1&m$ybd3@o8v)ad=o9%!@v"
 
 # Coleta os arquivos estáticos
 RUN python manage.py collectstatic --noinput
@@ -33,4 +23,4 @@ RUN python manage.py collectstatic --noinput
 EXPOSE 8000
 
 # Comando para iniciar o servidor
-CMD ["gunicorn", "--bind", ":8000", "--workers", "2", "--worker-class", "uvicorn.workers.UvicornWorker", "config.asgi:application"]
+CMD ["gunicorn", "--bind", ":8000", "--workers", "2", "--worker-class", "uvicorn.workers.UvicornWorker", "hackathon.asgi:application"]

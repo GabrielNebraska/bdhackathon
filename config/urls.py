@@ -7,6 +7,14 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+#from django.contrib import admin
+#from django.urls import path, include
+#from rest_framework.routers import DefaultRouter
+from hackathon.views import (
+    ChamadoViewSet, CargoViewSet, UsuarioViewSet, ClienteViewSet,
+    OrcamentosViewSet, ServicoViewSet, RelatorioViewSet,
+    FerramentaspecasViewSet, ParalelismoViewSet, FuncionarioViewSet
+)
 
 
 from django.contrib import admin

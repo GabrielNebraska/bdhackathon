@@ -20,12 +20,11 @@ load_dotenv()
 MODE = os.getenv("MODE")
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-DEBUG = os.getenv("DEBUG", "False")
+DEBUG = os.getenv("DEBUG", "False") == "True"
 ALLOWED_HOSTS = ["*"]
 
 #CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://localhost:8000", "https://*.fl0.io/"]
 # settings.py
-
 CSRF_TRUSTED_ORIGINS = ['https://bdhackathon.fly.dev']
 
 if MODE in ["PRODUCTION", "MIGRATE"]:

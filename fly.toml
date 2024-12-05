@@ -1,14 +1,9 @@
-# fly.toml app configuration file generated for bdhackathon on 2024-12-04T20:43:37-03:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
 app = 'bdhackathon'
 primary_region = 'gru'
-console_command = '/code/manage.py shell'
 
 [build]
-
+  image = "python:3.9"
+  
 [deploy]
   release_command = 'python manage.py migrate --noinput'
 
@@ -25,9 +20,3 @@ console_command = '/code/manage.py shell'
 
 [[vm]]
   memory = '1gb'
-  cpu_kind = 'shared'
-  cpus = 1
-
-[[statics]]
-  guest_path = '/code/static'
-  url_prefix = '/static/'
