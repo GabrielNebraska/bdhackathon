@@ -18,14 +18,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 MODE = os.getenv("MODE")
-
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv('(o0%3vw_nt9(!lct^x5mg5maol83tovy=1nk5_^vb4ynmquorg', '(o0%3vw_nt9(!lct^x5mg5maol83tovy=1nk5_^vb4ynmquorg')
+#SECRET_KEY = os.getenv("_*(ko-j_4x-pfkh+u_4gm0inget@1&m$ybd3@o8v)ad=o9%!@v")
 DEBUG = os.getenv("DEBUG", "False") == "True"
 ALLOWED_HOSTS = ["*"]
 
-#CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://localhost:8000", "https://*.fl0.io/"]
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "http://localhost:8000", "https://*.fl0.io/", 'https://deployfuncionarios.vercel.app/estoque']
 # settings.py
-CSRF_TRUSTED_ORIGINS = ['https://bdhackathon.fly.dev', 'https://deployfuncionarios.vercel.app/estoque']
+#CSRF_TRUSTED_ORIGINS = ['https://bdhackathon.fly.dev', 'https://deployfuncionarios.vercel.app/estoque']
 
 if MODE in ["PRODUCTION", "MIGRATE"]:
     MEDIA_URL = "/media/"
