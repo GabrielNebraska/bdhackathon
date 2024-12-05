@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:9bea73fc99d9f6917bc276af0b2e1f7c93e08e7acfd23c485f825cfca1ce3e6f"
+content_hash = "sha256:8d0c70d6b9719caee13ef0bd22ecea6016bcdb3f486396b67fc2173f755c04a0"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
@@ -476,6 +476,15 @@ files = [
 ]
 
 [[package]]
+name = "libmagic"
+version = "1.0"
+summary = "libmagic bindings"
+groups = ["default"]
+files = [
+    {file = "libmagic-1.0.tar.gz", hash = "sha256:649f1ce7fb7c92796badbb812555e4a926351da4f5cdf82e810b5cd371aedf8d"},
+]
+
+[[package]]
 name = "more-itertools"
 version = "10.5.0"
 requires_python = ">=3.8"
@@ -720,7 +729,6 @@ version = "0.4.27"
 requires_python = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 summary = "File type identification using libmagic"
 groups = ["default"]
-marker = "sys_platform == \"linux\""
 files = [
     {file = "python-magic-0.4.27.tar.gz", hash = "sha256:c1ba14b08e4a5f5c31a302b7721239695b2f0f058d125bd5ce1ee36b9d9d3c3b"},
     {file = "python_magic-0.4.27-py2.py3-none-any.whl", hash = "sha256:c212960ad306f700aa0d01e5d7a325d20548ff97eb9920dcd29513174f0294d3"},

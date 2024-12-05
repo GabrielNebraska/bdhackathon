@@ -29,6 +29,7 @@ from uploader.router import router as uploader_router
 
 from hackathon.views import (
     CargoViewSet,
+    ChamadoViewSet,
     UsuarioViewSet,
     ClienteViewSet,
     OrcamentosViewSet,
@@ -43,6 +44,7 @@ from hackathon.views import (
 
 router = DefaultRouter()
 router.register(r"cargos", CargoViewSet)
+router.register(r"chamados", ChamadoViewSet)
 router.register(r"usuarios", UsuarioViewSet)
 router.register(r"clientes", ClienteViewSet)
 router.register(r"orcamentoss", OrcamentosViewSet)
